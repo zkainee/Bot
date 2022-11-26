@@ -1,6 +1,5 @@
 package nl.kaine.listeners;
 
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -15,7 +14,6 @@ public class ReportListener extends ListenerAdapter {
             String body = Objects.requireNonNull(event.getValue("body")).getAsString();
 
             event.reply("Bedankt voor je report!").setEphemeral(true).queue();
-
 
             TextChannel channel = event.getJDA().getTextChannelById("1031605982314381352");
             if (Objects.requireNonNull(channel).canTalk()) {
