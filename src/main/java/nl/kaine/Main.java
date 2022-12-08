@@ -13,12 +13,10 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import nl.kaine.commands.CommandHandler;
 import nl.kaine.commands.CommandManager;
 import nl.kaine.commands.Report;
-import nl.kaine.commands.Test;
 import nl.kaine.listeners.Embed;
 import nl.kaine.listeners.ReportListener;
 
 public class Main extends ListenerAdapter {
-
     public static String prefix = "$";
     public static void main(String[] args) throws InterruptedException {
         // Load env file
@@ -34,16 +32,14 @@ public class Main extends ListenerAdapter {
         jda.getPresence().setActivity(Activity.listening("bot by: Kaine"));
         jda.getPresence().setStatus(OnlineStatus.ONLINE);
         jda.addEventListener(
+                new Main(),
                 new Report(),
                 new ReportListener(),
                 new CommandHandler(),
                 new Embed(),
-                new Test(),
                 new CommandManager());
 
-        //TODO Commanda toevoegen aan slash-list, verder zie CommandHandler
         Guild guild = jda.getGuildById("988150737714442321");
-
         if (guild != null) {
             jda.updateCommands()
                     .addCommands(Commands.slash("assist", "Command voor jouw hulp"))
@@ -52,5 +48,13 @@ public class Main extends ListenerAdapter {
                     .queue();
         }
     }
-
 }
+
+//TODO
+// Commando toevoegen aan slash-list, verder zie CommandHandler
+// Zorgen dat embed word gestuurd als .<command> word gedaan
+// CommandManager maken met prefix [$] (zie line: 21) & gemakkelijk commando's kan aanmaken.
+// /help commando fix op: "The application did not respond"
+// Fix reply report embed message
+// Ephemeral(true) op slashcommandinteractionevent
+// PREFIX commando's

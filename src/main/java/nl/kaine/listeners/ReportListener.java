@@ -1,5 +1,7 @@
 package nl.kaine.listeners;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -15,9 +17,17 @@ public class ReportListener extends ListenerAdapter {
 
             event.reply("Bedankt voor je report!").setEphemeral(true).queue();
 
+            //Reported embed
             TextChannel channel = event.getJDA().getTextChannelById("1031605982314381352");
             if (Objects.requireNonNull(channel).canTalk()) {
-                channel.sendMessage("REPORT | ID " + header + " Reden: " + body + " van: " ).queue();
+                MessageEmbed embed = new EmbedBuilder()
+                        .setAuthor("TALE", event.getJDA().getSelfUser().getAvatarUrl())
+                        .setThumbnail(event.getUser().getAvatarUrl())
+                        .setTitle("ID: " + header)
+                        .setDescription("Reden: " + body)
+                        .setFooter("Reported by: " + event.getUser().getAsTag())
+                        .build();
+                channel.sendMessageEmbeds(embed).queue();
             }
         }
     }

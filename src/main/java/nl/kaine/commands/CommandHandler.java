@@ -2,9 +2,9 @@ package nl.kaine.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import nl.kaine.listeners.Embed;
 
 public class CommandHandler extends ListenerAdapter {
-    //TODO CommandManager maken met prefix [.] & gemakkelijk commando's kan aanmaken.
 
     // Slash Commando's
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
@@ -13,13 +13,15 @@ public class CommandHandler extends ListenerAdapter {
 
         if ("assist".equals(event.getName())) {
             event.deferReply().queue();
-            event.getHook().sendMessage("Rapporteren lukt niet? Zet Dev Mode aan en copy user ID").setEphemeral(true).queue();
+            Embed.sendAssistReply(event);
         } else if ("report".equals(event.getName())) {
             event.getHook().sendMessage("We gaan je helpen, hulp nodig? /assist!").setEphemeral(true).queue();
         } else if ("help".equals(event.getName())) {
-            event.deferReply().queue();
+            Embed.sendHelpEmbed(event);
+            event.deferReply().setEphemeral(true).queue();
         } else {
-            event.reply("Hey, onbekend commando: (").setEphemeral(true).queue();
+            event.deferReply().queue();
+            Embed.sendEmbedReply(event);
         }
     }
 }
