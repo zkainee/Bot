@@ -13,7 +13,7 @@ public class CommandHandler extends ListenerAdapter {
         {
             case "assist":
                 Embed.sendAssistReply(event);
-                event.getChannel().
+//                event.getChannel().
                 break;
             default:
                 Embed.sendEmbedReply(event);
